@@ -1,5 +1,95 @@
+graph_Z_ent <- function(Z, t, n)
+{
+    ggplot(mapping = aes(x = t, y = Z)) +
+        geom_line(linewidth = 1) +
+        labs(title = "Vie entière")
+}
+graph_Z_ent(val, TT)
 
 
+graph_Z_temp <- function(Z, t, n)
+{
+    ggplot() +
+        geom_line(aes(x = t[t < n], y = Z[t < n]), linewidth = 1) +
+        geom_point(aes(x = n, y = Z[t == n]),
+                   fill = "white", col = "black", pch = 21, size = 2) +
+        geom_segment(aes(x = n, xend = t[length(t)], y = 0, yend = 0), linewidth = 1) +
+        geom_point(aes(x = n, y = 0), size = 2) +
+        labs(title = "Temporaire")
+}
+graph_Z_temp(val, TT, 30)
+
+
+graph_Z_cap_diff <- function(Z, t, n)
+{
+    cap_diff <- Z[t == n]
+    ggplot() +
+        geom_segment(aes(x = t[1], xend = t[which(t == n) - 1],
+                         y = 0, yend = 0), linewidth = 1) +
+        geom_point(aes(x = n, y = 0),
+                   fill = "white", col = "black", pch = 21, size = 2) +
+        geom_segment(aes(x = n, xend = t[length(t)],
+                         y = cap_diff, yend = cap_diff), linewidth = 1) +
+        geom_point(aes(x = n, y = cap_diff), size = 2) +
+        labs(title = "Capital différé")
+}
+graph_Z_cap_diff(val, TT, 30)
+
+graph_Z_mixte <- function(Z, t, n)
+{
+    cap_diff <- Z[t == n]
+    ggplot() +
+        geom_line(aes(x = t[t < n], y = Z[t < n]), linewidth = 1) +
+        geom_segment(aes(x = n, xend = t[length(t)],
+                         y = cap_diff, yend = cap_diff), linewidth = 1) +
+        labs(title = "Mixte")
+}
+graph_Z_mixte(val, TT, 30)
+
+graph_Z_diff <- function(Z, t, n)
+{
+    ggplot() +
+        geom_segment(aes(x = t[1], xend = t[which(t == n) - 1],
+                         y = 0, yend = 0), linewidth = 1) +
+        geom_point(aes(x = n, y = 0),
+                   fill = "white", col = "black", pch = 21, size = 2) +
+        geom_line(aes(x = t[t >= n], y = Z[t >= n]), linewidth = 1) +
+        geom_point(aes(x = n, y = Z[t == n]), size = 2) +
+        labs(title = "Différée")
+}
+graph_Z_diff(val, TT, 30)
+
+graph_Z <- function(..., x, type = c("ent", "temp", "cap_diff", "mixte", "diff"))
+{
+    graph <- switch(match.arg(type),
+                    "ent" = graph_Z_ent(...),
+                    "temp" = graph_Z_temp(...),
+                    "cap_diff" = graph_Z_cap_diff(...),
+                    "mixte" = graph_Z_mixte(...),
+                    "diff" = graph_Z_diff(...))
+    graph +
+        labs(x = TeX(paste0("$T_{", x, "}$")),
+             y = "Z") +
+        scale_y_continuous(breaks = seq(0, 1, by = 0.1), limits = c(0, 1)) +
+        theme_bw()
+}
+
+graph_Z(Z = val, t = TT, x = 20, type = "ent")
+graph_Z(Z = val, t = TT, n = 30, x = 20, type = "temp")
+graph_Z(Z = val, t = TT, n = 30, x = 20, type = "cap_diff")
+graph_Z(Z = val, t = TT, n = 30, x = 20, type = "mixte")
+graph_Z(Z = val, t = TT, n = 30, x = 20, type = "diff")
+
+the_delta <- 0.1
+the_t <- seq(0, 80, 0.1)
+the_omega <- 100
+the_x <- 20
+the_n <- 60
+
+the_Z <- Z(the_delta, the_t)
+the_tqx <- tqx("demoivre", t = the_t, omega = the_omega, x = the_x)
+
+graph_Z(Z = the_Z, t = the_t, n = the_n, x = the_x, type = "mixte")
 
 
 
