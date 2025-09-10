@@ -1,3 +1,4 @@
+#' @export
 nqx <- function(methode = c("demoivre", "expo"), ...)
 {
     switch(match.arg(methode),

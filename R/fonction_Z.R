@@ -1,3 +1,4 @@
+#' @export
 Z <- function(delta, t = seq(0, 100, 0.1))
 {
     ## t doit être positif
@@ -8,5 +9,6 @@ Z <- function(delta, t = seq(0, 100, 0.1))
     exp(-delta * t)
 }
 
-devtools::document()
+devtools::descrip
 roxygen2::roxygenize()
+usethis::use_description()
