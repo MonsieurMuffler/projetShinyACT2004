@@ -1,3 +1,5 @@
+#' @importFrom scales label_number
+#'
 #' @export
 graph_FZ <- function(..., x, type = c("ent", "temp", "cap_diff", "mixte", "diff"))
 {
@@ -10,7 +12,7 @@ graph_FZ <- function(..., x, type = c("ent", "temp", "cap_diff", "mixte", "diff"
     graph +
         labs(x = "x",
              y = TeX("$F_Z(x)$")) +
-        scale_y_continuous(breaks = seq(0, 1, by = 0.1), limits = c(0, 1)) +
-        scale_x_continuous(breaks = seq(0, 1, by = 0.1), limits = c(-0.1, 1.1)) +
+        scale_y_continuous(breaks = seq(0, 1, by = 0.1), limits = c(0, 1), labels = label_number(decimal.mark = ",")) +
+        scale_x_continuous(breaks = seq(0, 1, by = 0.1), limits = c(-0.1, 1.1), labels = label_number(decimal.mark = ",")) +
         theme_bw()
 }

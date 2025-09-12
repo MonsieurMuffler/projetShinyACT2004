@@ -3,6 +3,7 @@ library(shiny)
 library(projetShinyACT2004)
 library(ggplot2)
 library(latex2exp)
+library(scales)
 
 ## Serveur
 function(input, output, session) {
