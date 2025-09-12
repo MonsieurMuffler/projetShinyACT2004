@@ -5,7 +5,7 @@ account: yovoicidesgraphiques
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 15432549
-bundleId: 10897837
+bundleId: 10897990
 url: https://yovoicidesgraphiques.shinyapps.io/application_Z_prototype/
 version: 1
 asMultiple: FALSE

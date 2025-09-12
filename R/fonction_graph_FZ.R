@@ -1,5 +1,3 @@
-#' @importFrom scales label_number
-#'
 #' @export
 graph_FZ <- function(..., x, type = c("ent", "temp", "cap_diff", "mixte", "diff"))
 {
