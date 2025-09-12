@@ -8,5 +8,5 @@ graph_FZ_diff <- function(Z, t, tqx, n)
         geom_point(aes(x = Z[length(Z)], y = 0),
                    fill = "white", col = "black", pch = 21, size = 2) +
         geom_point(aes(x = Z[length(Z)], y = tqx[t == n]), size = 2) +
-        labs(title = "Fonction de répartition pour une assurance différée")
+        labs(title = "Fonction de répartition (assurance différée)")
 }

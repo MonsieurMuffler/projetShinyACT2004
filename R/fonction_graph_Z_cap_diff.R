@@ -10,5 +10,5 @@ graph_Z_cap_diff <- function(Z, t, n)
         geom_segment(aes(x = n, xend = t[length(t)],
                          y = cap_diff, yend = cap_diff), linewidth = 1) +
         geom_point(aes(x = n, y = cap_diff), size = 2) +
-        labs(title = "Capital différé")
+        labs(title = "Valeur actualisée (capital différé)")
 }

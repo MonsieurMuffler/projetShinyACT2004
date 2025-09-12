@@ -8,5 +8,5 @@ graph_FZ_mixte <- function(Z, t, tqx, n)
         geom_point(aes(x = Z[t == n], y = 0),
                    fill = "white", col = "black", pch = 21, size = 2) +
         geom_point(aes(x = Z[t == n], y = (1 - tqx)[t == n]), size = 2) +
-        labs(title = "Fonction de répartition pour une assurance mixte")
+        labs(title = "Fonction de répartition (assurance mixte)")
 }

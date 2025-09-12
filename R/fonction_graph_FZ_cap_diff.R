@@ -12,5 +12,5 @@ graph_FZ_cap_diff <- function(Z, t, tqx, n)
         geom_point(aes(x = cap_diff, y = tqx[t == n]),
                    fill = "white", col = "black", pch = 21, size = 2) +
         geom_point(aes(x = cap_diff, y = 1), size = 2) +
-        labs(title = "Fonction de répartition pour un capital différé")
+        labs(title = "Fonction de répartition (capital différé)")
 }

@@ -13,7 +13,7 @@ library(shiny)
 fluidPage(
 
     ## Titre
-    titlePanel("Bip bip"),
+    titlePanel(paste0("Variable aléatoire Z")),
 
     ## Paramètres
     sidebarLayout(
@@ -32,31 +32,31 @@ fluidPage(
                         step = 1),
             # Durée des produits temporaires
             sliderInput(inputId = "the_n",
-                        label = "Durée des produits temporaires : ",
+                        label = "Durée des périodes temporaires/différées : ",
                         value = 30,
                         min = 0,
                         max = 100,
                         step = 1),
             # Âge ultime
             sliderInput(inputId = "the_omega",
-                        label = "Âge ultime : ",
+                        label = "Âge ultime (loi de De Moivre) : ",
                         value = 100,
                         min = 0,
                         max = 100,
                         step = 1),
             # Force d'intérêt
             numericInput(inputId = "the_delta",
-                         label = "Force d'intérêt : ",
+                         label = "Force d'intérêt (loi exponentielle) : ",
                          value = 0.05,
                          min = 0,
-                         max = 1,
+                         max = 0.2,
                          step = 0.01),
             # Force de mortalité
             numericInput(inputId = "the_mu",
                          label = "Force de mortalité : ",
                          value = 0.03,
                          min = 0,
-                         max = 1,
+                         max = 0.2,
                          step = 0.01),
             # Produit à comparer
             selectInput(inputId = "the_type",
@@ -71,9 +71,9 @@ fluidPage(
         mainPanel(
             column(6,
                    plotOutput("Z_ent"),
-                   plotOutput("Z_comp")),
+                   plotOutput("FZ_ent")),
             column(6,
-                   plotOutput("FZ_ent"),
+                   plotOutput("Z_comp"),
                    plotOutput("FZ_comp"))
         )
     )

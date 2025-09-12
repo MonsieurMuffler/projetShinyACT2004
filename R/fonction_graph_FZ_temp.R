@@ -9,5 +9,5 @@ graph_FZ_temp <- function(Z, t, tqx, n)
         geom_point(aes(x = 0, y = 0),
                    fill = "white", col = "black", pch = 21, size = 2) +
         geom_point(aes(x = 0, y = (1 - tqx)[t == n]), size = 2) +
-        labs(title = "Fonction de répartition pour une assurance temporaire")
+        labs(title = "Fonction de répartition (assurance temporaire)")
 }

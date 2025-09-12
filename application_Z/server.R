@@ -39,20 +39,23 @@ function(input, output, session) {
 
 
     ## Valeurs intermédiaires
-    the_t <- reactive(seq(0, the_omega() - the_x(), 0.1))
+    the_t <- reactive(seq(0, ifelse(input$the_loi == "De Moivre", the_omega(), 1000) - the_x(), 0.2))
     the_Z <- reactive(Z(the_delta(), the_t()))
     the_tqx <- reactive(switch(input$the_loi,
                                "De Moivre" = tqx("demoivre", t = the_t(), omega = the_omega(), x = the_x()),
                                "Exponentielle" = tqx("expo", t = the_t(), mu = the_mu())))
+    the_max <- reactive(switch(input$the_loi,
+                               "De Moivre" = TRUE,
+                               "Exponentielle" = the_t() <= 100))
 
     ## Assurance vie entière (valeur actualisée)
     output$Z_ent <- renderPlot({
-        graph_Z(Z = the_Z(), t = the_t(), n = the_n(), x = the_x(), type = "ent")
+        graph_Z(Z = the_Z()[the_max()], t = the_t()[the_max()], n = the_n(), x = the_x(), type = "ent")
     })
 
     ## Autre produit (valeur actualisée)
     output$Z_comp <- renderPlot({
-        graph_Z(Z = the_Z(), t = the_t(), n = the_n(), x = the_x(), type = the_type())
+        graph_Z(Z = the_Z()[the_max()], t = the_t()[the_max()], n = the_n(), x = the_x(), type = the_type())
     })
 
     ## Assurance vie entière (fonction de répartition)
