@@ -10,6 +10,20 @@ fluidPage(
     ## Paramètres
     sidebarLayout(
         sidebarPanel(
+            # Produit à comparer
+            selectInput(inputId = "the_type",
+                        label = "Produit à comparer avec l'assurance vie entière : ",
+                        choices = c("Assurance temporaire",
+                                    "Capital différé",
+                                    "Assurance mixte",
+                                    "Assurance différée")),
+            # Force d'intérêt
+            numericInput(inputId = "the_delta",
+                         label = "Force d'intérêt : ",
+                         value = 0.05,
+                         min = 0,
+                         max = 0.2,
+                         step = 0.01),
             # Loi de mortalité
             selectInput(inputId = "the_loi",
                         label = "Loi de mortalité : ",
@@ -36,27 +50,13 @@ fluidPage(
                         min = 0,
                         max = 100,
                         step = 1),
-            # Force d'intérêt
-            numericInput(inputId = "the_delta",
-                         label = "Force d'intérêt (loi exponentielle) : ",
-                         value = 0.05,
-                         min = 0,
-                         max = 0.2,
-                         step = 0.01),
             # Force de mortalité
             numericInput(inputId = "the_mu",
-                         label = "Force de mortalité : ",
+                         label = "Force de mortalité (loi exponentielle) : ",
                          value = 0.03,
                          min = 0,
                          max = 0.2,
-                         step = 0.01),
-            # Produit à comparer
-            selectInput(inputId = "the_type",
-                        label = "Type de produit : ",
-                        choices = c("Assurance temporaire",
-                                    "Capital différé",
-                                    "Assurance mixte",
-                                    "Assurance différée"))
+                         step = 0.01)
         ),
 
         ## Graphiques
