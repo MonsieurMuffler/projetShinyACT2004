@@ -29,13 +29,24 @@ function(input, output, session) {
                                    "Assurance mixte" = "mixte",
                                    "Assurance différée" = "diff"))
 
+    ## Loi
+    the_loi <- reactive(input$the_loi)
+
 
     ## Valeurs intermédiaires
-    the_t <- reactive(seq(0, ifelse(input$the_loi == "De Moivre",
-                                    the_omega(),
-                                    1000) - the_x(), 0.2))
+    the_t <- reactive({
+        validate(
+            need(
+                ifelse(the_loi() == "De Moivre",
+                       the_omega() > the_x() &  the_n() < the_omega() - the_x(),
+                       TRUE), paste0("Impossible de produire le graphique ",
+                                     "avec les paramètres spécifiés.")))
+        seq(0, ifelse(the_loi() == "De Moivre",
+                      the_omega(),
+                      1000) - the_x(), 0.2)
+    })
     the_Z <- reactive(Z(the_delta(), the_t()))
-    the_tqx <- reactive(switch(input$the_loi,
+    the_tqx <- reactive(switch(the_loi(),
                                "De Moivre" = tqx("demoivre",
                                                  t = the_t(),
                                                  omega = the_omega(),
@@ -43,7 +54,7 @@ function(input, output, session) {
                                "Exponentielle" = tqx("expo",
                                                      t = the_t(),
                                                      mu = the_mu())))
-    the_max <- reactive(switch(input$the_loi,
+    the_max <- reactive(switch(the_loi(),
                                "De Moivre" = TRUE,
                                "Exponentielle" = the_t() <= 100))
 
