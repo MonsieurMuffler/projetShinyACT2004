@@ -84,10 +84,11 @@ the_delta <- 0.07
 the_omega <- 200
 the_mu <- 0.03
 the_x <- 0
-the_t <- seq(0, the_omega - the_x, 0.1)
 the_n <- 30
+the_t <- seq(0, the_omega - the_x, 0.1)
 the_Z <- Z(the_delta, the_t)
 the_tqx <- tqx("demoivre", t = the_t, omega = the_omega, x = the_x)
+the_t <- seq(0, 100, 0.1)
 the_tqx <- tqx("expo", t = the_t, mu = the_mu)
 
 
