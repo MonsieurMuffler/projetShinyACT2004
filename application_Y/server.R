@@ -1,0 +1,96 @@
+## Paquetages
+library(shiny)
+library(projetShinyACT2004)
+library(ggplot2)
+library(latex2exp)
+library(scales)
+
+## Serveur
+function(input, output, session) {
+
+    ## Âge initial
+    the_x <- reactive(input$the_x)
+
+    ## Durée
+    the_n <- reactive(input$the_n)
+
+    ## Âge ultime
+    the_omega <- reactive(input$the_omega)
+
+    ## Force d'intérêt
+    the_delta <- reactive(input$the_delta)
+
+    ## Force de mortalité
+    the_mu <- reactive(input$the_mu)
+
+    ## Type de produit
+    the_type <- reactive(switch(input$the_type,
+                                "Rente temporaire" = "temp",
+                                "Rente différée" = "diff",
+                                "Rente garantie" = "gar"))
+
+    ## Loi
+    the_loi <- reactive(input$the_loi)
+
+
+    ## Valeurs intermédiaires
+    the_t <- reactive({
+        validate(
+            need(
+                ifelse(the_loi() == "De Moivre",
+                       the_omega() > the_x() &  the_n() < the_omega() - the_x(),
+                       TRUE), paste0("Impossible de produire le graphique ",
+                                     "avec les paramètres spécifiés.")))
+        seq(0, ifelse(the_loi() == "De Moivre",
+                      the_omega(),
+                      1000) - the_x(), 0.2)
+    })
+    the_Y <- reactive(Y(the_delta(), the_t()))
+    the_tqx <- reactive(switch(the_loi(),
+                               "De Moivre" = tqx("demoivre",
+                                                 t = the_t(),
+                                                 omega = the_omega(),
+                                                 x = the_x()),
+                               "Exponentielle" = tqx("expo",
+                                                     t = the_t(),
+                                                     mu = the_mu())))
+    the_max <- reactive(switch(the_loi(),
+                               "De Moivre" = TRUE,
+                               "Exponentielle" = the_t() <= 100))
+
+    ## Assurance vie entière (valeur actualisée)
+    output$Y_via <- renderPlot({
+        graph_Y(Y = the_Y()[the_max()],
+                t = the_t()[the_max()],
+                n = the_n(),
+                x = the_x(),
+                type = "via")
+    })
+
+    ## Autre produit (valeur actualisée)
+    output$Y_comp <- renderPlot({
+        graph_Y(Y = the_Y()[the_max()],
+                t = the_t()[the_max()],
+                n = the_n(),
+                x = the_x(),
+                type = the_type())
+    })
+
+    ## Assurance vie entière (fonction de répartition)
+    output$FY_via <- renderPlot({
+        graph_FY(Y = the_Y(),
+                 t = the_t(),
+                 tqx = the_tqx(),
+                 n = the_n(),
+                 type = "via")
+    })
+
+    ## Autre produit (fonction de répartition)
+    output$FY_comp <- renderPlot({
+        graph_FY(Y = the_Y(),
+                 t = the_t(),
+                 tqx = the_tqx(),
+                 n = the_n(),
+                 type = the_type())
+    })
+}
