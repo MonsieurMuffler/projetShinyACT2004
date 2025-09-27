@@ -403,3 +403,46 @@ ggplot(df) +
     labs(title = "ECDF with Gaps (No Vertical Lines)",
          x = "x", y = "F(x)") +
     theme_minimal()
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Y
+
+
+the_delta <- 0.1
+the_omega <- 100
+the_mu <- 0.03
+the_x <- 0
+the_n <- 10
+the_t <- seq(0, the_omega - the_x, 0.1)
+the_Y <- Y(the_delta, the_t)
+the_tqx <- tqx("demoivre", t = the_t, omega = the_omega, x = the_x)
+the_t <- seq(0, 100, 0.1)
+the_tqx <- tqx("expo", t = the_t, mu = the_mu)
+graph_Y_via(the_Y, the_t)
+
+graph_Y(Y = the_Y, t = the_t, x = the_x)
+graph_Y(Y = the_Y, t = the_t, n = the_n, x = the_x, type = "temp")
+graph_Y(Y = the_Y, t = the_t, n = the_n, x = the_x, type = "diff")
+graph_Y(Y = the_Y, t = the_t, n = the_n, x = the_x, type = "gar")
+graph_FY(Y = the_Y, t = the_t, tqx = the_tqx, n = the_n,  x = the_x)
+graph_FY(Y = the_Y, t = the_t, tqx = the_tqx, n = the_n,  x = the_x, type = "temp")
+graph_FY(Y = the_Y, t = the_t, tqx = the_tqx, n = the_n,  x = the_x, type = "diff")
+graph_FY(Y = the_Y, t = the_t, tqx = the_tqx, n = the_n,  x = the_x, type = "gar")
+
+the_Y[the_t == the_n] - the_Y[the_t == the_n]
+
+graph_FY_via(the_Y, the_t, the_tqx, the_n)
+graph_FY_temp(the_Y, the_t, the_tqx, the_n)
+the_Y[the_t == the_n]
+the_tqx[the_t == the_n]

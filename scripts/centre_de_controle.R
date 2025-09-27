@@ -5,6 +5,7 @@ library(magrittr)
 library(roxygen2)
 library(devtools)
 library(scales)
+library(projetShinyACT2004)
 
 usethis::use_description()
 usethis::use_namespace()
