@@ -1,0 +1,12 @@
+name: application_Y_prototype
+title: application_Y_prototype
+username: yovoicidesgraphiques
+account: yovoicidesgraphiques
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 15584929
+bundleId: 10973650
+url: https://yovoicidesgraphiques.shinyapps.io/application_Y_prototype/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

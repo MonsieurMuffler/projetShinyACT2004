@@ -6,6 +6,7 @@ library(roxygen2)
 library(devtools)
 library(scales)
 library(projetShinyACT2004)
+library(shiny)
 
 usethis::use_description()
 usethis::use_namespace()
